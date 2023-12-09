@@ -20,6 +20,11 @@ class SchoolRegister {
     return this.class;
   }
 
+  // Visualizza i dati di tutti gli studenti nel registro
+  viewGrade(id) {
+    const student = this.class.find((s) => s.id === id);
+    return student.grade;
+  }
   // Aggiungi un voto a uno studente specifico
   addGrade(id, grade, data, description) {
     const student = this.class.find((s) => s.id === id);
