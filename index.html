@@ -25,21 +25,22 @@
         </div>
         <div class="row">
           <div class="col-lg-12">
-            <div class="addSButton text-right">
-              <button class="btn btn-primary">Add Student</button>
-            </div>
-            <table class="table" id="tableStudent">
-              <thead id="theadS">
-                <tr>
-                  <th class="text-center" scope="col">#</th>
-                  <th scope="col">Last Name</th>
-                  <th scope="col">First Name</th>
-                  <th scope="col">Gradebook</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody id="tbodyS">
-                <!--
+            <div id="tableStudent">
+              <div class="addSButton text-right">
+                <button class="btn btn-primary">Add Student</button>
+              </div>
+              <table class="table">
+                <thead id="theadS">
+                  <tr>
+                    <th class="text-center" scope="col">#</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Gradebook</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyS">
+                  <!--
                 <tr>
                   <th class="text-center" scope="row">1</th>
                   <td>Giuseppe</td>
@@ -64,13 +65,11 @@
                     <button>Grades</button>
                   </td>
                 </tr>
-                -->
-              </tbody>
-            </table>
+                --></tbody>
+              </table>
+            </div>
             <div class="hidden" id="tableGrade">
-              <div class="nameGradeBook">
-                <h4>Gradebook Giuseppe Barca</h4>
-              </div>
+              <div class="nameGradeBook"></div>
               <table class="table">
                 <thead id="theadG">
                   <tr>
@@ -82,6 +81,122 @@
                   </tr>
                 </thead>
                 <tbody id="tbodyG">
+                  <!--<tr>
+                    <th class="text-center" scope="row">7.5</th>
+                    <td>12-10-2023</td>
+                    <td>bla bla bla</td>
+                    <td>remove</td>
+                  </tr>
+                  <tr>
+                    <th class="text-center" scope="row">8</th>
+                    <td>12-10-2023</td>
+                    <td>bla bla bla</td>
+                    <td>remove</td>
+                  </tr>
+                  <tr>
+                    <th class="text-center" scope="row">7.5</th>
+                    <td>12-10-2023</td>
+                    <td>bla bla bla</td>
+                    <td>remove</td>
+                  </tr>-->
+                </tbody>
+              </table>
+            </div>
+            <div class="hidden" id="addSTable">
+              <div class="addSButton text-right d-inline">
+                <button class="btn btn-primary">Confirm</button>
+              </div>
+              <div class="abortSButton text-right d-inline">
+                <button class="btn btn-primary">Abort</button>
+              </div>
+              <table class="table">
+                <thead id="theadS">
+                  <tr>
+                    <th class="text-center" scope="col">#</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyAddS">
+                  <tr>
+                    <td>1</td>
+                    <td>
+                      <form>
+                        <input
+                          type="text"
+                          id="firstName_1"
+                          name="firstName_1"
+                        />
+                      </form>
+                    </td>
+                    <td>
+                      <form>
+                        <input type="text" id="lastName_1" name="lastName_1" />
+                      </form>
+                    </td>
+                    <td>
+                      <button type="button" class="subAddS">Submit</button>
+                    </td>
+                  </tr>
+                  <!--
+                  <tr>
+                    <th class="text-center" scope="row">1</th>
+                    <td>Giuseppe</td>
+                    <td>Barca</td>
+                    <td>
+                      <button>Grades</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="text-center" scope="row">2</th>
+                    <td>Francesco</td>
+                    <td>Barca</td>
+                    <td>
+                      <button>Grades</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="text-center" scope="row">3</th>
+                    <td>Giuseppe</td>
+                    <td>Nave</td>
+                    <td>
+                      <button>Grades</button>
+                    </td>
+                  </tr>
+                  -->
+                </tbody>
+              </table>
+              <table class="table">
+                <thead id="theadG">
+                  <tr>
+                    <th class="text-center" scope="col">Grade</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Description</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyG">
+                  <td class="text-center" scope="row">
+                    <form>
+                      <input type="text" id="grade_1" name="grade_1" />
+                    </form>
+                  </td>
+                  <td>
+                    <form>
+                      <input type="text" id="date_1" name="date_1" />
+                    </form>
+                  </td>
+                  <td>
+                    <form>
+                      <input
+                        type="text"
+                        id="description_1"
+                        name="description_1"
+                      />
+                    </form>
+                  </td>
+                  <td><button type="button" class="subAddV">Submit</button></td>
                   <!--<tr>
                     <th class="text-center" scope="row">7.5</th>
                     <td>12-10-2023</td>
