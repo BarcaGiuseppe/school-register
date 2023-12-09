@@ -56,7 +56,10 @@ class SchoolRegister {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const classList = document.getElementById("tbodyS");
+  const studentList = document.getElementById("tbodyS");
+  const gradeList = document.getElementById("tbodyG");
+  const classTable = document.getElementById("tableStudent");
+  const gradeTable = document.getElementById("tableGrade");
 
   const register = new SchoolRegister();
 
@@ -66,6 +69,19 @@ document.addEventListener("DOMContentLoaded", function () {
   //register.removeStudent("4ce2790d6f16b18c4fe61c10");
   //console.log(register.viewStudent());
 
+  // Aggiungo un listener per il click sulla tabella delle persone
+  tableStudent.addEventListener("click", (event) => {
+    const gradeButton = event.target.closest(".gradeButton");
+    if (gradeButton) {
+      const studentId = gradeButton.closest("th").getAttribute("id");
+      const studentGrade = register.viewGrade(studentId);
+
+      studentList.classList.add("hidden");
+      gradeList.classList.remove("hidden");
+
+      populateTableG(studentGrade);
+    }
+  });
   // Funzione per popolare la tabella con i dati degli studenti
   function populateTableS(data) {
     classList.innerHTML = "";
@@ -73,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     data.forEach((student) => {
       const row = classList.insertRow();
-      row.innerHTML = `<th class="text-center" scope="row" id=${student.id}>${count}</th><td>${student.lastname}</td><td>${student.firstname}</td><td><button>Grades</button></td>`;
+      row.innerHTML = `<th class="text-center" scope="row" id=${student.id}>${count}</th><td>${student.lastname}</td><td>${student.firstname}</td><td><button class="gradeButton">Grades</button></td>`;
       count++;
     });
   }
