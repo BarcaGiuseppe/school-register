@@ -67,6 +67,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const studentTable = document.getElementById("tableStudent");
   const gradeTable = document.getElementById("tableGrade");
   const nameGradebook = document.querySelector(".nameGradeBook");
+  const addFormS = document.getElementById("tbodyAddS");
+  const addSTable = document.getElementById("addSTable");
 
   const register = new SchoolRegister();
 
@@ -97,6 +99,18 @@ document.addEventListener("DOMContentLoaded", function () {
     if (backButton) {
       gradeTable.classList.add("hidden");
       studentTable.classList.remove("hidden");
+    }
+  });
+
+  // Aggiungo un listener per il click sul pulsante add della lista studenti
+  document.addEventListener("click", (event) => {
+    const addSButton = event.target.closest(".addSButton");
+    //const newElementHTML =
+    //  '<tr><td>1</td><td><form><input type="text" id="firstName_1" name="firstName_1"></form></td><td><form><input type="text" id="lastName_1" name="lastName_1"></form></td><td><button type="button" class="subAddS">Submit</button></td></tr>';
+    if (addSButton) {
+      //studentList.insertAdjacentHTML("beforebegin", newElementHTML);
+      studentTable.classList.add("hidden");
+      addSTable.classList.remove("hidden");
     }
   });
   // Funzione per popolare la tabella con i dati degli studenti
