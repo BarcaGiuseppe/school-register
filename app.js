@@ -23,7 +23,8 @@ class SchoolRegister {
   // Visualizza i dati di tutti gli studenti nel registro
   viewGrade(id) {
     const student = this.class.find((s) => s.id === id);
-    return student.grade;
+    //console.log(student);
+    return student.grades;
   }
   // Aggiungi un voto a uno studente specifico
   addGrade(id, grade, data, description) {
@@ -63,7 +64,7 @@ class SchoolRegister {
 document.addEventListener("DOMContentLoaded", function () {
   const studentList = document.getElementById("tbodyS");
   const gradeList = document.getElementById("tbodyG");
-  const classTable = document.getElementById("tableStudent");
+  const studentTable = document.getElementById("tableStudent");
   const gradeTable = document.getElementById("tableGrade");
 
   const register = new SchoolRegister();
@@ -78,33 +79,33 @@ document.addEventListener("DOMContentLoaded", function () {
   tableStudent.addEventListener("click", (event) => {
     const gradeButton = event.target.closest(".gradeButton");
     if (gradeButton) {
-      const studentId = gradeButton.closest("th").getAttribute("id");
+      const studentId = gradeButton.closest("tr").querySelector("th").id;
       const studentGrade = register.viewGrade(studentId);
-
-      studentList.classList.add("hidden");
-      gradeList.classList.remove("hidden");
+      console.log(studentGrade);
+      studentTable.classList.add("hidden");
+      gradeTable.classList.remove("hidden");
 
       populateTableG(studentGrade);
     }
   });
   // Funzione per popolare la tabella con i dati degli studenti
   function populateTableS(data) {
-    classList.innerHTML = "";
+    studentList.innerHTML = "";
     let count = 1;
 
     data.forEach((student) => {
-      const row = classList.insertRow();
+      const row = studentList.insertRow();
       row.innerHTML = `<th class="text-center" scope="row" id=${student.id}>${count}</th><td>${student.lastname}</td><td>${student.firstname}</td><td><button class="gradeButton">Grades</button></td>`;
       count++;
     });
   }
   // Funzione per popolare la tabella con i dati dei voti
   function populateTableG(data) {
-    classList.innerHTML = "";
+    gradeList.innerHTML = "";
 
     data.forEach((grade) => {
-      const row = classList.insertRow();
-      row.innerHTML = `<th class="text-center" scope="row">${grade[0]}</th><td>${grade[1]}</td><td>${grade[2]}</td><td><button class="removeGradeButton">Remove</button></td>`;
+      const row = gradeList.insertRow();
+      row.innerHTML = `<th class="text-center" scope="row">${grade.grade}</th><td>${grade.data}</td><td>${grade.description}</td><td><button class="removeGradeButton">Remove</button></td>`;
     });
   }
   //console.log(register.viewClass());
