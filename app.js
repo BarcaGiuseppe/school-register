@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //register.removeStudent("4ce2790d6f16b18c4fe61c10");
   //console.log(register.viewStudent());
 
-  // Aggiungo un listener per il click sulla tabella delle persone
+  // Aggiungo un listener per il click sul pulsante grade degli studenti
   tableStudent.addEventListener("click", (event) => {
     const gradeButton = event.target.closest(".gradeButton");
     if (gradeButton) {
@@ -85,12 +85,13 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(student);
       studentTable.classList.add("hidden");
       gradeTable.classList.remove("hidden");
-      nameGradebook.innerHTML = `<button class="backButton d-inline-block btn btn-primary" onclick="backButton()">Back</button><h4 class="d-inline-block">Gradebook ${student.lastname} ${student.firstname}</h4>`;
+      nameGradebook.innerHTML = `<button class="backButton d-inline-block btn btn-primary"">Back</button><h4 class="d-inline-block">Gradebook ${student.lastname} ${student.firstname}</h4>`;
 
       populateTableG(student.grades);
     }
   });
 
+  // Aggiungo un listener per il click sul pulsante back della lista grade
   document.addEventListener("click", (event) => {
     const backButton = event.target.closest(".backButton");
     if (backButton) {
@@ -115,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     data.forEach((grade) => {
       const row = gradeList.insertRow();
-      row.innerHTML = `<th class="text-center" scope="row">${grade.grade}</th><td>${grade.data}</td><td>${grade.description}</td><td><button class="removeGradeButton">Remove</button></td>`;
+      row.innerHTML = `<td class="text-center" scope="row">${grade.grade}</td><td>${grade.data}</td><td>${grade.description}</td><td><button class="removeGradeButton">Remove</button></td>`;
     });
   }
 
