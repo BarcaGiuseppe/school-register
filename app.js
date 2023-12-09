@@ -10,13 +10,8 @@ class SchoolRegister {
       lastname,
       grades: [],
     };
-    console.log("this.studnt prima:");
-    console.log(this.class);
 
     this.class.push(student);
-    console.log("this.studnt dopo push:");
-    console.log(this.class);
-
     localStorage.setItem("schoolRegister", JSON.stringify(this.class));
   }
 
@@ -26,10 +21,8 @@ class SchoolRegister {
   }
 
   // Aggiungi un voto a uno studente specifico
-  addGrade(firstname, lastname, grade, data, description) {
-    const student = this.class.find(
-      (s) => s.firstname === firstname && s.lastname === lastname
-    );
+  addGrade(id, grade, data, description) {
+    const student = this.class.find((s) => s.id === id);
 
     if (student) {
       student.grades.push({
@@ -38,50 +31,53 @@ class SchoolRegister {
         description,
       });
     }
+    localStorage.setItem("schoolRegister", JSON.stringify(this.class));
+    /*console.log(student);
+    console.log("addgrade:");
+    console.log(this.class);*/
   }
 
   // Modifica i dati di uno studente
-  updateStudent(firstname, lastname, nFirstname, nLastname) {
-    const student = this.class.find(
-      (s) => s.firstname === firstname && s.lastname === lastname
-    );
+  updateStudent(id, nFirstname, nLastname) {
+    const student = this.class.find((s) => s.id === id);
 
     if (student) {
       student.firstname = nFirstname;
       student.lastname = nLastname;
     }
+    localStorage.setItem("schoolRegister", JSON.stringify(this.class));
   }
 
   // Rimuovi uno studente dal registro
-  removeStudent(firstname, lastname) {
-    this.class = this.class.filter(
-      (s) => !(s.firstname === firstname && s.lastname === lastname)
-    );
+  removeStudent(id) {
+    this.class = this.class.filter((s) => !(s.id === id));
+    localStorage.setItem("schoolRegister", JSON.stringify(this.class));
   }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const votesList = document.getElementById("tbodyS");
+  const classList = document.getElementById("tbodyS");
 
   const register = new SchoolRegister();
 
-  //registro.aggiungiStudente("Mario", "Rossi");
-  //registro.aggiungiVoto("Mario", "Rossi", 8, "Math", "2023-01-10");
+  //register.addStudent("Anna", "Bianchi");
+  //register.addGrade("3f4440ddf5ecd18c4fe5c07f", 8, "Math", "2023-01-10");
+  //register.updateStudent("4ce2790d6f16b18c4fe61c10", "Giuseppe", "Barca");
+  //register.removeStudent("4ce2790d6f16b18c4fe61c10");
+  //console.log(register.viewStudent());
 
-  //console.log(registro.visualizzaStudenti());
-
-  // Funzione per popolare la tabella con i dati
+  // Funzione per popolare la tabella con i dati degli studenti
   function populateTableS(data) {
-    votesList.innerHTML = "";
+    classList.innerHTML = "";
     let count = 1;
 
     data.forEach((student) => {
-      const row = votesList.insertRow();
-      row.innerHTML = `<th class="text-center" scope="row">${count}</th><td>${student.lastname}</td><td>${student.firstname}</td><td><button>Grades</button></td>`;
+      const row = classList.insertRow();
+      row.innerHTML = `<th class="text-center" scope="row" id=${student.id}>${count}</th><td>${student.lastname}</td><td>${student.firstname}</td><td><button>Grades</button></td>`;
       count++;
     });
   }
-  console.log(register.visualizzaStudenti());
-  // Popola la tabella all'avvio
-  populateTableS(register.visualizzaStudenti());
+  //console.log(register.viewClass());
+  // Popola la tabella studenti all'avvio
+  populateTableS(register.viewClass());
 });
