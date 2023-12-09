@@ -1,0 +1,4 @@
+/* Aggiungi stili per nascondere/mostrare le tabelle */
+.hidden {
+  display: none;
+}
