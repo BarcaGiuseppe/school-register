@@ -3,7 +3,103 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
     <title>School Register</title>
   </head>
-  <body></body>
+  <body>
+    <div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="text-center">
+              <h2>School Register</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <table class="table" id="tableStudent">
+              <thead id="theadS">
+                <tr>
+                  <th class="text-center" scope="col">#</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Gradebook</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody id="tbodyS">
+                <tr>
+                  <th class="text-center" scope="row">1</th>
+                  <td>Giuseppe</td>
+                  <td>Barca</td>
+                  <td>
+                    <button>Grades</button>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="text-center" scope="row">2</th>
+                  <td>Francesco</td>
+                  <td>Barca</td>
+                  <td>
+                    <button>Grades</button>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="text-center" scope="row">3</th>
+                  <td>Giuseppe</td>
+                  <td>Nave</td>
+                  <td>
+                    <button>Grades</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table" id="tableGrade">
+              <thead id="theadG">
+                <div class="nameGradeBook">
+                  <tr>
+                    <h3>Gradebook Giuseppe Barca</h3>
+                  </tr>
+                </div>
+                <tr>
+                  <th class="text-center" scope="col">Grade</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Remove/Update</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody id="tbodyG">
+                <tr>
+                  <th class="text-center" scope="row">7.5</th>
+                  <td>12-10-2023</td>
+                  <td>bla bla bla</td>
+                  <td>remove</td>
+                </tr>
+                <tr>
+                  <th class="text-center" scope="row">8</th>
+                  <td>12-10-2023</td>
+                  <td>bla bla bla</td>
+                  <td>remove</td>
+                </tr>
+                <tr>
+                  <th class="text-center" scope="row">7.5</th>
+                  <td>12-10-2023</td>
+                  <td>bla bla bla</td>
+                  <td>remove</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
