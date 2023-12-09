@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
@@ -35,6 +36,7 @@
                 </tr>
               </thead>
               <tbody id="tbodyS">
+                <!--
                 <tr>
                   <th class="text-center" scope="row">1</th>
                   <td>Giuseppe</td>
@@ -59,44 +61,45 @@
                     <button>Grades</button>
                   </td>
                 </tr>
+                -->
               </tbody>
             </table>
-            <table class="table" id="tableGrade">
-              <thead id="theadG">
-                <div class="nameGradeBook">
+            <div class="hidden">
+              <div class="nameGradeBook">
+                <h4>Gradebook Giuseppe Barca</h4>
+              </div>
+              <table class="table" id="tableGrade">
+                <thead id="theadG">
                   <tr>
-                    <h3>Gradebook Giuseppe Barca</h3>
+                    <th class="text-center" scope="col">Grade</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Remove/Update</th>
+                    <th scope="col"></th>
                   </tr>
-                </div>
-                <tr>
-                  <th class="text-center" scope="col">Grade</th>
-                  <th scope="col">Date</th>
-                  <th scope="col">Description</th>
-                  <th scope="col">Remove/Update</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody id="tbodyG">
-                <tr>
-                  <th class="text-center" scope="row">7.5</th>
-                  <td>12-10-2023</td>
-                  <td>bla bla bla</td>
-                  <td>remove</td>
-                </tr>
-                <tr>
-                  <th class="text-center" scope="row">8</th>
-                  <td>12-10-2023</td>
-                  <td>bla bla bla</td>
-                  <td>remove</td>
-                </tr>
-                <tr>
-                  <th class="text-center" scope="row">7.5</th>
-                  <td>12-10-2023</td>
-                  <td>bla bla bla</td>
-                  <td>remove</td>
-                </tr>
-              </tbody>
-            </table>
+                </thead>
+                <tbody id="tbodyG">
+                  <tr>
+                    <th class="text-center" scope="row">7.5</th>
+                    <td>12-10-2023</td>
+                    <td>bla bla bla</td>
+                    <td>remove</td>
+                  </tr>
+                  <tr>
+                    <th class="text-center" scope="row">8</th>
+                    <td>12-10-2023</td>
+                    <td>bla bla bla</td>
+                    <td>remove</td>
+                  </tr>
+                  <tr>
+                    <th class="text-center" scope="row">7.5</th>
+                    <td>12-10-2023</td>
+                    <td>bla bla bla</td>
+                    <td>remove</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
