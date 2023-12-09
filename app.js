@@ -93,6 +93,15 @@ document.addEventListener("DOMContentLoaded", function () {
       count++;
     });
   }
+  // Funzione per popolare la tabella con i dati dei voti
+  function populateTableG(data) {
+    classList.innerHTML = "";
+
+    data.forEach((grade) => {
+      const row = classList.insertRow();
+      row.innerHTML = `<th class="text-center" scope="row">${grade[0]}</th><td>${grade[1]}</td><td>${grade[2]}</td><td><button class="removeGradeButton">Remove</button></td>`;
+    });
+  }
   //console.log(register.viewClass());
   // Popola la tabella studenti all'avvio
   populateTableS(register.viewClass());
