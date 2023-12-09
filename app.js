@@ -24,7 +24,7 @@ class SchoolRegister {
   viewGrade(id) {
     const student = this.class.find((s) => s.id === id);
     //console.log(student);
-    return student.grades;
+    return student;
   }
   // Aggiungi un voto a uno studente specifico
   addGrade(id, grade, data, description) {
@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const gradeList = document.getElementById("tbodyG");
   const studentTable = document.getElementById("tableStudent");
   const gradeTable = document.getElementById("tableGrade");
+  const nameGradebook = document.querySelector(".nameGradeBook");
 
   const register = new SchoolRegister();
 
@@ -80,12 +81,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const gradeButton = event.target.closest(".gradeButton");
     if (gradeButton) {
       const studentId = gradeButton.closest("tr").querySelector("th").id;
-      const studentGrade = register.viewGrade(studentId);
-      console.log(studentGrade);
+      const student = register.viewGrade(studentId);
+      console.log(student);
       studentTable.classList.add("hidden");
       gradeTable.classList.remove("hidden");
+      nameGradebook.innerHTML = `<h4>Gradebook ${student.lastname} ${student.firstname}</h4>`;
 
-      populateTableG(studentGrade);
+      populateTableG(student.grades);
     }
   });
   // Funzione per popolare la tabella con i dati degli studenti
