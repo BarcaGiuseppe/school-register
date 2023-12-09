@@ -25,6 +25,7 @@
         </div>
         <div class="row">
           <div class="col-lg-12">
+            <!--@@@@@@@@  TABLE LIST STUDENTS  @@@@@@@@@@@@ -->
             <div id="tableStudent">
               <div class="addSButton text-right">
                 <button class="btn btn-primary">Add Student</button>
@@ -40,34 +41,11 @@
                   </tr>
                 </thead>
                 <tbody id="tbodyS">
-                  <!--
-                <tr>
-                  <th class="text-center" scope="row">1</th>
-                  <td>Giuseppe</td>
-                  <td>Barca</td>
-                  <td>
-                    <button>Grades</button>
-                  </td>
-                </tr>
-                <tr>
-                  <th class="text-center" scope="row">2</th>
-                  <td>Francesco</td>
-                  <td>Barca</td>
-                  <td>
-                    <button>Grades</button>
-                  </td>
-                </tr>
-                <tr>
-                  <th class="text-center" scope="row">3</th>
-                  <td>Giuseppe</td>
-                  <td>Nave</td>
-                  <td>
-                    <button>Grades</button>
-                  </td>
-                </tr>
-                --></tbody>
+                  <!--DOM-->
+                </tbody>
               </table>
             </div>
+            <!--@@@@@@@@  TABLE LIST GRADES  @@@@@@@@@@@@ -->
             <div class="hidden" id="tableGrade">
               <div class="nameGradeBook"></div>
               <table class="table">
@@ -81,27 +59,11 @@
                   </tr>
                 </thead>
                 <tbody id="tbodyG">
-                  <!--<tr>
-                    <th class="text-center" scope="row">7.5</th>
-                    <td>12-10-2023</td>
-                    <td>bla bla bla</td>
-                    <td>remove</td>
-                  </tr>
-                  <tr>
-                    <th class="text-center" scope="row">8</th>
-                    <td>12-10-2023</td>
-                    <td>bla bla bla</td>
-                    <td>remove</td>
-                  </tr>
-                  <tr>
-                    <th class="text-center" scope="row">7.5</th>
-                    <td>12-10-2023</td>
-                    <td>bla bla bla</td>
-                    <td>remove</td>
-                  </tr>-->
+                  <!--DOM-->
                 </tbody>
               </table>
             </div>
+            <!--@@@@@@@@  TABLE ADD STUDENTS  @@@@@@@@@@@@ -->
             <div class="hidden" id="addSTable">
               <div class="addSButton text-right d-inline">
                 <button class="btn btn-primary">Confirm</button>
@@ -109,7 +71,8 @@
               <div class="abortSButton text-right d-inline">
                 <button class="btn btn-primary">Abort</button>
               </div>
-              <table class="table">
+              <!--TABLE add student-->
+              <table class="table tableS">
                 <thead id="theadS">
                   <tr>
                     <th class="text-center" scope="col">#</th>
@@ -139,35 +102,10 @@
                       <button type="button" class="subAddS">Submit</button>
                     </td>
                   </tr>
-                  <!--
-                  <tr>
-                    <th class="text-center" scope="row">1</th>
-                    <td>Giuseppe</td>
-                    <td>Barca</td>
-                    <td>
-                      <button>Grades</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th class="text-center" scope="row">2</th>
-                    <td>Francesco</td>
-                    <td>Barca</td>
-                    <td>
-                      <button>Grades</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th class="text-center" scope="row">3</th>
-                    <td>Giuseppe</td>
-                    <td>Nave</td>
-                    <td>
-                      <button>Grades</button>
-                    </td>
-                  </tr>
-                  -->
                 </tbody>
               </table>
-              <table class="table">
+              <!--TABLE add grades-->
+              <table class="table tableG">
                 <thead id="theadG">
                   <tr>
                     <th class="text-center" scope="col">Grade</th>
@@ -176,7 +114,7 @@
                     <th scope="col"></th>
                   </tr>
                 </thead>
-                <tbody id="tbodyG">
+                <tbody id="tbodyAddSG">
                   <td class="text-center" scope="row">
                     <form>
                       <input type="text" id="grade_1" name="grade_1" />
@@ -197,24 +135,6 @@
                     </form>
                   </td>
                   <td><button type="button" class="subAddV">Submit</button></td>
-                  <!--<tr>
-                    <th class="text-center" scope="row">7.5</th>
-                    <td>12-10-2023</td>
-                    <td>bla bla bla</td>
-                    <td>remove</td>
-                  </tr>
-                  <tr>
-                    <th class="text-center" scope="row">8</th>
-                    <td>12-10-2023</td>
-                    <td>bla bla bla</td>
-                    <td>remove</td>
-                  </tr>
-                  <tr>
-                    <th class="text-center" scope="row">7.5</th>
-                    <td>12-10-2023</td>
-                    <td>bla bla bla</td>
-                    <td>remove</td>
-                  </tr>-->
                 </tbody>
               </table>
             </div>
