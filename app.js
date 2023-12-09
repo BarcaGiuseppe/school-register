@@ -85,9 +85,17 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(student);
       studentTable.classList.add("hidden");
       gradeTable.classList.remove("hidden");
-      nameGradebook.innerHTML = `<h4>Gradebook ${student.lastname} ${student.firstname}</h4>`;
+      nameGradebook.innerHTML = `<button class="backButton d-inline-block btn btn-primary" onclick="backButton()">Back</button><h4 class="d-inline-block">Gradebook ${student.lastname} ${student.firstname}</h4>`;
 
       populateTableG(student.grades);
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    const backButton = event.target.closest(".backButton");
+    if (backButton) {
+      gradeTable.classList.add("hidden");
+      studentTable.classList.remove("hidden");
     }
   });
   // Funzione per popolare la tabella con i dati degli studenti
@@ -110,6 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
       row.innerHTML = `<th class="text-center" scope="row">${grade.grade}</th><td>${grade.data}</td><td>${grade.description}</td><td><button class="removeGradeButton">Remove</button></td>`;
     });
   }
+
   //console.log(register.viewClass());
   // Popola la tabella studenti all'avvio
   populateTableS(register.viewClass());
