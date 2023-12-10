@@ -101,6 +101,8 @@ document.addEventListener("DOMContentLoaded", function () {
   document.addEventListener("click", (event) => {
     const backButton = event.target.closest(".backButton");
     const abortSButton = event.target.closest(".abortSButton");
+    const confirmSButton = event.target.closest(".confirmSButton");
+
     if (backButton) {
       gradeTable.classList.add("hidden");
       studentTable.classList.remove("hidden");
@@ -108,6 +110,24 @@ document.addEventListener("DOMContentLoaded", function () {
     if (abortSButton) {
       addSTable.classList.add("hidden");
       studentTable.classList.remove("hidden");
+      studentArray = [];
+      gradesArray = [];
+    }
+    if (confirmSButton) {
+      addSTable.classList.add("hidden");
+      studentTable.classList.remove("hidden");
+      console.log(
+        "studentArray:" +
+          JSON.stringify(studentArray) +
+          "\n" +
+          "studentArray.firstName:" +
+          JSON.stringify(studentArray[0].firstName) +
+          "\n" +
+          "studentArray.lastName:" +
+          JSON.stringify(studentArray[0].lastName)
+      );
+      register.addStudent(studentArray[0].firstName, studentArray[0].lastName);
+      populateTableS(register.viewClass());
       studentArray = [];
       gradesArray = [];
     }
