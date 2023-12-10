@@ -3,14 +3,29 @@ class SchoolRegister {
     this.class = JSON.parse(localStorage.getItem("schoolRegister")) || [];
   }
   // Aggiungi uno studente al registro
-  addStudent(firstname, lastname) {
-    const student = {
-      id: Math.random().toString(16).slice(2) + Date.now().toString(16),
-      firstname,
-      lastname,
-      grades: [],
-    };
-
+  addStudent(firstname, lastname, grade = false) {
+    let student = "";
+    if (grade !== false) {
+      student = {
+        id: Math.random().toString(16).slice(2) + Date.now().toString(16),
+        firstname,
+        lastname,
+        grades: [
+          {
+            grade: grade[0].grade,
+            date: grade[0].date,
+            description: grade[0].description,
+          },
+        ],
+      };
+    } else {
+      student = {
+        id: Math.random().toString(16).slice(2) + Date.now().toString(16),
+        firstname,
+        lastname,
+        grades: [],
+      };
+    }
     this.class.push(student);
     localStorage.setItem("schoolRegister", JSON.stringify(this.class));
   }
@@ -76,9 +91,9 @@ document.addEventListener("DOMContentLoaded", function () {
   let gradesArray = [];
   let studentArray = [];
   //let count = 0;
-  //register.addStudent("Anna", "Bianchi");
-  //register.addGrade("3f4440ddf5ecd18c4fe5c07f", 8, "Math", "2023-01-10");
-  //register.updateStudent("4ce2790d6f16b18c4fe61c10", "Giuseppe", "Barca");
+  //register.addStudent("Mario", "Rossi");
+  //register.addGrade("5e7cd6947bb4618c540471a3", 8, "Math", "2023-01-10");
+  //register.updateStudent("5e7cd6947bb4618c540471a3", "Giuseppe", "Barca");
   //register.removeStudent("4ce2790d6f16b18c4fe61c10");
   //console.log(register.viewStudent());
 
@@ -126,7 +141,18 @@ document.addEventListener("DOMContentLoaded", function () {
           "studentArray.lastName:" +
           JSON.stringify(studentArray[0].lastName)
       );
-      register.addStudent(studentArray[0].firstName, studentArray[0].lastName);
+      if (gradesArray.length > 0) {
+        console.log("i dati grade ci sono:" + studentArray[0].firstName);
+        register.addStudent(
+          studentArray[0].firstName,
+          studentArray[0].lastName,
+          gradesArray
+        );
+      } else
+        register.addStudent(
+          studentArray[0].firstName,
+          studentArray[0].lastName
+        );
       populateTableS(register.viewClass());
       studentArray = [];
       gradesArray = [];
@@ -177,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const description = document.getElementById("description_0").value;
 
       gradesArray.push({ grade, date, description });
-      console.log(
+      /*console.log(
         "count:" +
           "\n" +
           "gradesArray:" +
@@ -192,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
           "description:" +
           description +
           "\n"
-      );
+      );*/
       populateTableAddSG(gradesArray);
       //const newElementHTML = `<tr><td>${grade}</td><td>${date}</td><td>${description}</td><td></td></tr>`;
       // Esempio: Aggiungi una nuova riga con i dati inseriti
