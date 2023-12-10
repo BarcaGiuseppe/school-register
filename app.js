@@ -68,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const gradeTable = document.getElementById("tableGrade");
   const nameGradebook = document.querySelector(".nameGradeBook");
   const addFormS = document.getElementById("tbodyAddS");
+  const addFormSG = document.getElementById("tbodyAddSG");
   const addSTable = document.getElementById("addSTable");
 
   const register = new SchoolRegister();
@@ -120,10 +121,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const firstName = document.getElementById("firstName_1").value;
     const lastName = document.getElementById("lastName_1").value;
 
-    const newElementHTML = `<tr><td>1</td><td>${lastName}</td><td>${firstName}</td><td></td></tr>`;
+    const newElementHTML = `<tr><td>#</td><td>${lastName}</td><td>${firstName}</td><td></td></tr>`;
 
     // Esempio: Aggiungi una nuova riga con i dati inseriti
     addFormS.innerHTML = newElementHTML;
+    //addFormS.appendChild(newElementHTML);
+
+    // Resetta i campi del modulo
+    //document.getElementById("firstName_1").value = "";
+    //document.getElementById("lastName_1").value = "";
+  });
+
+  document.querySelector(".subAddG").addEventListener("click", () => {
+    // Ottieni i valori inseriti nei campi del modulo
+    const grade = document.getElementById("grade_1").value;
+    const date = document.getElementById("date_1").value;
+    const description = document.getElementById("description_1").value;
+
+    const newElementHTML = `<tr><td>${grade}</td><td>${date}</td><td>${description}</td><td></td></tr>`;
+
+    // Esempio: Aggiungi una nuova riga con i dati inseriti
+    addFormSG.insertAdjacentHTML("beforebegin", newElementHTML);
     //addFormS.appendChild(newElementHTML);
 
     // Resetta i campi del modulo
