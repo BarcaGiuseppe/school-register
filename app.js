@@ -27,13 +27,13 @@ class SchoolRegister {
     return student;
   }
   // Aggiungi un voto a uno studente specifico
-  addGrade(id, grade, data, description) {
+  addGrade(id, grade, date, description) {
     const student = this.class.find((s) => s.id === id);
 
     if (student) {
       student.grades.push({
         grade,
-        data,
+        date,
         description,
       });
     }
@@ -74,14 +74,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const register = new SchoolRegister();
 
   let gradesArray = [];
-  let count = 0;
+  //let count = 0;
   //register.addStudent("Anna", "Bianchi");
   //register.addGrade("3f4440ddf5ecd18c4fe5c07f", 8, "Math", "2023-01-10");
   //register.updateStudent("4ce2790d6f16b18c4fe61c10", "Giuseppe", "Barca");
   //register.removeStudent("4ce2790d6f16b18c4fe61c10");
   //console.log(register.viewStudent());
 
-  // Aggiungo un listener per il click sul pulsante grade degli studenti
+  //@@@ Aggiungo un listener per il click sul pulsante grade degli studenti
   tableStudent.addEventListener("click", (event) => {
     const gradeButton = event.target.closest(".gradeButton");
     if (gradeButton) {
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Aggiungo un listener per il click sul pulsante back della lista grade
+  //@@@ Aggiungo un listener per il click sul pulsante back della lista grade
   document.addEventListener("click", (event) => {
     const backButton = event.target.closest(".backButton");
     if (backButton) {
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Aggiungo un listener per il click sul pulsante add della lista studenti
+  //@@@ Aggiungo un listener per il click sul pulsante add della lista studenti
   document.addEventListener("click", (event) => {
     const addSButton = event.target.closest(".addSButton");
     //const newElementHTML =
@@ -119,23 +119,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Aggiungo un listener per il click sul pulsante submit dell' add studenti
+  //@@@ Aggiungo un listener per il click sul pulsante submit dell' add studenti
   document.querySelector(".subAddS").addEventListener("click", () => {
     // Ottieni i valori inseriti nei campi del modulo
     const firstName = document.getElementById("firstName_1").value;
     const lastName = document.getElementById("lastName_1").value;
-
     const newElementHTML = `<tr><td>#</td><td>${lastName}</td><td>${firstName}</td><td></td></tr>`;
-
     // Esempio: Aggiungi una nuova riga con i dati inseriti
     addFormS.innerHTML = newElementHTML;
     //addFormS.appendChild(newElementHTML);
-
     // Resetta i campi del modulo
     //document.getElementById("firstName_1").value = "";
     //document.getElementById("lastName_1").value = "";
   });
 
+  //@@@ Aggiungo un listener per il click sul pulsante submit dell' add grade studenti
   //document.querySelector(".subAddG").addEventListener("click", () => {
   document.addEventListener("click", (event) => {
     const subAddG = event.target.closest(".subAddG");
@@ -166,7 +164,6 @@ document.addEventListener("DOMContentLoaded", function () {
       );
       populateTableAddSG(gradesArray);
       //const newElementHTML = `<tr><td>${grade}</td><td>${date}</td><td>${description}</td><td></td></tr>`;
-
       // Esempio: Aggiungi una nuova riga con i dati inseriti
       //addFormSG.insertAdjacentHTML("beforebegin", newElementHTML);
       //addFormS.appendChild(newElementHTML);
@@ -175,6 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //document.getElementById("firstName_1").value = "";
     //document.getElementById("lastName_1").value = "";
   });
+
   // Funzione per popolare la tabella con i dati degli studenti
   function populateTableS(data) {
     studentList.innerHTML = "";
@@ -194,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
       row.innerHTML = `<td class="text-center" scope="row">${grade.grade}</td><td>${grade.date}</td><td>${grade.description}</td><td><button class="removeGradeButton">Remove</button></td>`;
     });
   }
-
+  // Funzione per popolare la tabella con input grade e grade aggiunti
   function populateTableAddSG(data) {
     addFormSG.innerHTML = "";
     if (gradesArray.length > 0) {
