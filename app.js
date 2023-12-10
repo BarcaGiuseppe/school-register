@@ -5,19 +5,13 @@ class SchoolRegister {
   // Aggiungi uno studente al registro
   addStudent(firstname, lastname, grade = false) {
     let student = "";
+    console.log(grade);
     if (grade !== false) {
       student = {
         id: Math.random().toString(16).slice(2) + Date.now().toString(16),
         firstname,
         lastname,
-        grades: [
-          {
-            id: Math.random().toString(16).slice(2) + Date.now().toString(16),
-            grade: grade[0].grade,
-            date: grade[0].date,
-            description: grade[0].description,
-          },
-        ],
+        grades: grade,
       };
     } else {
       student = {
@@ -43,12 +37,12 @@ class SchoolRegister {
     return student;
   }
   // Aggiungi un voto a uno studente specifico
-  addGrade(id, grade, date, description) {
-    const student = this.class.find((s) => s.id === id);
-    const idNew = Math.random().toString(16).slice(2) + Date.now().toString(16);
+  addGrade(idS, grade, date, description) {
+    const student = this.class.find((s) => s.id === idS);
+    const id = Math.random().toString(16).slice(2) + Date.now().toString(16);
     if (student) {
       student.grades.push({
-        idNew,
+        id,
         grade,
         date,
         description,
@@ -137,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
       studentTable.classList.add("hidden");
       gradeTable.classList.remove("hidden");
       nameGradebook.innerHTML = `<button class="backButton d-inline-block btn btn-primary"">Back</button><h4 class="d-inline-block">Gradebook ${student.lastname} ${student.firstname}</h4>`;
-      console.log("student.grade: " + student.grades);
+      //console.log("student.grade[0].id: " + student.grades[0].id);
       idStudentGrade = student.id;
       console.log("idStudentGrade: " + idStudentGrade);
       populateTableG(student.grades);
@@ -148,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.addEventListener("click", (event) => {
     const backButton = event.target.closest(".backButton");
     const abortSButton = event.target.closest(".abortSButton");
-    const confirmSButton = event.target.closest(".confirmSButton");
+    const confirmSButton = event.target.closest(".confirmSButton"); //pulsante conferma aggiunta studente
     const modSbutton = event.target.closest(".modSButton");
     const confModSButton = event.target.closest(".confModSButton");
     const updateGradeButton = event.target.closest(".updateGradeButton");
@@ -180,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
           JSON.stringify(studentArray[0].lastName)
       );
       if (gradesArray.length > 0) {
-        console.log("i dati grade ci sono:" + studentArray[0].firstName);
+        console.log("i dati grade ci sono, lunghezza:" + gradesArray);
         register.addStudent(
           studentArray[0].firstName,
           studentArray[0].lastName,
@@ -305,11 +299,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const subAddG = event.target.closest(".subAddG");
     // Ottieni i valori inseriti nei campi del modulo
     if (subAddG) {
+      const id = Math.random().toString(16).slice(2) + Date.now().toString(16);
       const grade = document.getElementById("grade_0").value;
       const date = document.getElementById("date_0").value;
       const description = document.getElementById("description_0").value;
 
-      gradesArray.push({ grade, date, description });
+      gradesArray.push({ id, grade, date, description });
       /*console.log(
         "count:" +
           "\n" +
@@ -363,6 +358,7 @@ document.addEventListener("DOMContentLoaded", function () {
   ) {
     gradeList.innerHTML = "";
     console.log("i: " + i);
+    console.log("data: " + data);
     data.forEach((elem, index) => {
       console.log(
         "elem.grade: " +
@@ -388,13 +384,14 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("date:" + elem.date.toString() === date.toString());*/
 
       if (i === elem.id) {
+        //modifica grade
         console.log("cca semu");
         //const row = gradeList.insertRow();
-        gradeList.innerHTML = `<tr id=${elem.id}><td class="text-center ${index}" id="gradeG" scope="row"><form><input type="text" id="grade_mod" name="grade_mod" value="${elem.grade}"/></td><td id="gradeD"><form><input type="text" id="date_mod" name="dae_mod" value="${elem.date}"/></td><td id="gradeDe"><form><input type="text" id="description_mod" name="description_mod" value="${elem.description}"/></td><td><button class="confModGButton">Confirm</button></td></tr>`;
+        gradeList.innerHTML += `<tr id=${elem.id}><td class="text-center ${index}" id="gradeG" scope="row"><form><input type="text" id="grade_mod" name="grade_mod" value="${elem.grade}"/></td><td id="gradeD"><form><input type="text" id="date_mod" name="dae_mod" value="${elem.date}"/></td><td id="gradeDe"><form><input type="text" id="description_mod" name="description_mod" value="${elem.description}"/></td><td><button class="confModGButton">Confirm</button></td></tr>`;
       } else {
         console.log("elem.id: " + elem.id);
         //const row = gradeList.insertRow();
-        gradeList.innerHTML = `<tr id=${elem.id}><td class="text-cente ${index}" id="gradeG" scope="row">${elem.grade}</td><td id="gradeD">${elem.date}</td><td id="gradeDe">${elem.description}</td><td><button class="updateGradeButton">Update</button><button class="remGradeButton">Remove</button></td></tr>`;
+        gradeList.innerHTML += `<tr id=${elem.id}><td class="text-cente ${index}" id="gradeG" scope="row">${elem.grade}</td><td id="gradeD">${elem.date}</td><td id="gradeDe">${elem.description}</td><td><button class="updateGradeButton">Update</button><button class="remGradeButton">Remove</button></td></tr>`;
       }
     });
   }
@@ -402,8 +399,8 @@ document.addEventListener("DOMContentLoaded", function () {
   function populateTableAddS(data) {
     addFormS.innerHTML = "";
     if (data.length > 0) {
+      //se lo student è già stato aggiunto
       addFormS.innerHTML = `<tr><td>#</td><td>${data.lastName}</td><td>${data.firstName}</td><td></td></tr>`;
-      // Esempio: Aggiungi una nuova riga con i dati inseriti
     } else {
       addFormS.innerHTML = `<tr>
       <td>#</td>
@@ -431,6 +428,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function populateTableAddSG(data) {
     addFormSG.innerHTML = "";
     if (gradesArray.length > 0) {
+      //se già stato aggiunto qualche grade
       addFormSG.innerHTML = `<tr><td class="text-center" scope="row"><form><input type="text" id="grade_0" name="grade_0" /></form></td><td><form><input type="text" id="date_0" name="date_0" /></form></td><td><form><input type="text" id="description_0" name="description_0"/></form></td><td><button type="button" class="subAddG">Submit</button></td></tr>`;
       data
         .slice()
