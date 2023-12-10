@@ -73,6 +73,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const register = new SchoolRegister();
 
+  let gradesArray = [];
+  let count = 0;
   //register.addStudent("Anna", "Bianchi");
   //register.addGrade("3f4440ddf5ecd18c4fe5c07f", 8, "Math", "2023-01-10");
   //register.updateStudent("4ce2790d6f16b18c4fe61c10", "Giuseppe", "Barca");
@@ -112,6 +114,8 @@ document.addEventListener("DOMContentLoaded", function () {
       //studentList.insertAdjacentHTML("beforebegin", newElementHTML);
       studentTable.classList.add("hidden");
       addSTable.classList.remove("hidden");
+
+      populateTableAddSG(gradesArray);
     }
   });
 
@@ -132,18 +136,41 @@ document.addEventListener("DOMContentLoaded", function () {
     //document.getElementById("lastName_1").value = "";
   });
 
-  document.querySelector(".subAddG").addEventListener("click", () => {
+  //document.querySelector(".subAddG").addEventListener("click", () => {
+  document.addEventListener("click", (event) => {
+    const subAddG = event.target.closest(".subAddG");
     // Ottieni i valori inseriti nei campi del modulo
-    const grade = document.getElementById("grade_1").value;
-    const date = document.getElementById("date_1").value;
-    const description = document.getElementById("description_1").value;
+    if (subAddG) {
+      const grade = document.getElementById("grade_0").value;
+      const date = document.getElementById("date_0").value;
+      const description = document.getElementById("description_0").value;
 
-    const newElementHTML = `<tr><td>${grade}</td><td>${date}</td><td>${description}</td><td></td></tr>`;
+      gradesArray.push({ grade, date, description });
+      count = count + 1;
+      console.log(
+        "count:" +
+          count +
+          "\n" +
+          "gradesArray:" +
+          JSON.stringify(gradesArray) +
+          "\n" +
+          "grade:" +
+          grade +
+          "\n" +
+          "date:" +
+          date +
+          "\n" +
+          "description:" +
+          description +
+          "\n"
+      );
+      populateTableAddSG(gradesArray);
+      //const newElementHTML = `<tr><td>${grade}</td><td>${date}</td><td>${description}</td><td></td></tr>`;
 
-    // Esempio: Aggiungi una nuova riga con i dati inseriti
-    addFormSG.insertAdjacentHTML("beforebegin", newElementHTML);
-    //addFormS.appendChild(newElementHTML);
-
+      // Esempio: Aggiungi una nuova riga con i dati inseriti
+      //addFormSG.insertAdjacentHTML("beforebegin", newElementHTML);
+      //addFormS.appendChild(newElementHTML);
+    }
     // Resetta i campi del modulo
     //document.getElementById("firstName_1").value = "";
     //document.getElementById("lastName_1").value = "";
@@ -156,7 +183,6 @@ document.addEventListener("DOMContentLoaded", function () {
     data.forEach((student) => {
       const row = studentList.insertRow();
       row.innerHTML = `<th class="text-center" scope="row" id=${student.id}>${count}</th><td>${student.lastname}</td><td>${student.firstname}</td><td><button class="gradeButton">Grades</button></td>`;
-      count++;
     });
   }
   // Funzione per popolare la tabella con i dati dei voti
@@ -165,8 +191,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     data.forEach((grade) => {
       const row = gradeList.insertRow();
-      row.innerHTML = `<td class="text-center" scope="row">${grade.grade}</td><td>${grade.data}</td><td>${grade.description}</td><td><button class="removeGradeButton">Remove</button></td>`;
+      row.innerHTML = `<td class="text-center" scope="row">${grade.grade}</td><td>${grade.date}</td><td>${grade.description}</td><td><button class="removeGradeButton">Remove</button></td>`;
     });
+  }
+
+  function populateTableAddSG(data) {
+    addFormSG.innerHTML = "";
+    if (gradesArray.length > 0) {
+      addFormSG.innerHTML = `<tr><td class="text-center" scope="row"><form><input type="text" id="grade_0" name="grade_0" /></form></td><td><form><input type="text" id="date_0" name="date_0" /></form></td><td><form><input type="text" id="description_0" name="description_0"/></form></td><td><button type="button" class="subAddG">Submit</button></td></tr>`;
+      data
+        .slice()
+        .reverse()
+        .forEach((grade) => {
+          const row = addFormSG.insertRow();
+          row.innerHTML = `<td class="text-center" scope="row">${grade.grade}</td><td>${grade.date}</td><td>${grade.description}</td><td><button class="removeGradeButton">Remove</button></td>`;
+          count++;
+        });
+    } else {
+      addFormSG.innerHTML = `<tr><td class="text-center" scope="row"><form><input type="text" id="grade_0" name="grade_0" /></form></td><td><form><input type="text" id="date_0" name="date_0" /></form></td><td><form><input type="text" id="description_0" name="description_0"/></form></td><td><button type="button" class="subAddG">Submit</button></td></tr>`;
+    }
   }
 
   //console.log(register.viewClass());
