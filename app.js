@@ -111,6 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const register = new SchoolRegister();
 
+  let gradeView = [];
   let gradesArray = [];
   let studentArray = [];
   let idStudentGrade = "";
@@ -134,6 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
       //console.log("student.grade[0].id: " + student.grades[0].id);
       idStudentGrade = student.id;
       console.log("idStudentGrade: " + idStudentGrade);
+      gradeView = student.grades;
       populateTableG(student.grades);
     }
   });
@@ -263,6 +265,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //@@@ Aggiungo un listener per il click sul pulsante add in alto lista studenti
   document.addEventListener("click", (event) => {
     const addSButton = event.target.closest(".addSButton");
+    const addGButton = event.target.closest(".addGButton");
     //const newElementHTML =
     //  '<tr><td>1</td><td><form><input type="text" id="firstName_1" name="firstName_1"></form></td><td><form><input type="text" id="lastName_1" name="lastName_1"></form></td><td><button type="button" class="subAddS">Submit</button></td></tr>';
     if (addSButton) {
@@ -271,6 +274,13 @@ document.addEventListener("DOMContentLoaded", function () {
       addSTable.classList.remove("hidden");
       populateTableAddS(studentArray);
       populateTableAddSG(gradesArray);
+    }
+    if (addGButton) {
+      //studentList.insertAdjacentHTML("beforebegin", newElementHTML);
+      //gradeTable.classList.add("hidden");
+      //addSTable.classList.remove("hidden");
+      //populateTableAddS(studentArray);
+      populateTableAddG(gradeView);
     }
   });
 
@@ -293,10 +303,11 @@ document.addEventListener("DOMContentLoaded", function () {
     //document.getElementById("lastName_1").value = "";
   });
 
-  //@@@ Aggiungo un listener per il click sul pulsante submit dell' add grade studenti
+  //@@@ Aggiungo un listener per il click sul pulsante submit dell' add grade nell'add studenti. e sul submit dell'add grade nell'add grade
   //document.querySelector(".subAddG").addEventListener("click", () => {
   document.addEventListener("click", (event) => {
     const subAddG = event.target.closest(".subAddG");
+    const subAddGG = event.target.closest(".subAddGG");
     // Ottieni i valori inseriti nei campi del modulo
     if (subAddG) {
       const id = Math.random().toString(16).slice(2) + Date.now().toString(16);
@@ -322,6 +333,36 @@ document.addEventListener("DOMContentLoaded", function () {
           "\n"
       );*/
       populateTableAddSG(gradesArray);
+      //const newElementHTML = `<tr><td>${grade}</td><td>${date}</td><td>${description}</td><td></td></tr>`;
+      // Esempio: Aggiungi una nuova riga con i dati inseriti
+      //addFormSG.insertAdjacentHTML("beforebegin", newElementHTML);
+      //addFormS.appendChild(newElementHTML);
+    }
+    // Ottieni i valori inseriti nei campi del modulo
+    if (subAddGG) {
+      const id = Math.random().toString(16).slice(2) + Date.now().toString(16);
+      const grade = document.getElementById("grade_1").value;
+      const date = document.getElementById("date_1").value;
+      const description = document.getElementById("description_1").value;
+
+      register.addGrade(idStudentGrade, grade, date, description);
+      /*console.log(
+        "count:" +
+          "\n" +
+          "gradesArray:" +
+          JSON.stringify(gradesArray) +
+          "\n" +
+          "grade:" +
+          grade +
+          "\n" +
+          "date:" +
+          date +
+          "\n" +
+          "description:" +
+          description +
+          "\n"
+      );*/
+      populateTableG(register.viewGrade(idStudentGrade).grades);
       //const newElementHTML = `<tr><td>${grade}</td><td>${date}</td><td>${description}</td><td></td></tr>`;
       // Esempio: Aggiungi una nuova riga con i dati inseriti
       //addFormSG.insertAdjacentHTML("beforebegin", newElementHTML);
@@ -440,6 +481,19 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       addFormSG.innerHTML = `<tr><td class="text-center" scope="row"><form><input type="text" id="grade_0" name="grade_0" /></form></td><td><form><input type="text" id="date_0" name="date_0" /></form></td><td><form><input type="text" id="description_0" name="description_0"/></form></td><td><button type="button" class="subAddG">Submit</button></td></tr>`;
     }
+  }
+
+  function populateTableAddG(data) {
+    gradeList.innerHTML = "";
+    gradeList.innerHTML = `<tr><td class="text-center" scope="row"><form><input type="text" id="grade_1" name="grade_1" /></form></td><td><form><input type="text" id="date_1" name="date_1" /></form></td><td><form><input type="text" id="description_1" name="description_1"/></form></td><td><button type="button" class="subAddGG">Submit</button></td></tr>`;
+    console.log(data);
+    data
+      .slice()
+      .reverse()
+      .forEach((grade) => {
+        const row = gradeList.insertRow();
+        row.innerHTML = `<td class="text-center" scope="row">${grade.grade}</td><td>${grade.date}</td><td>${grade.description}</td><td></td>`;
+      });
   }
 
   //console.log(register.viewClass());
