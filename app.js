@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const register = new SchoolRegister();
 
   let gradesArray = [];
+  let studentArray = [];
   //let count = 0;
   //register.addStudent("Anna", "Bianchi");
   //register.addGrade("3f4440ddf5ecd18c4fe5c07f", 8, "Math", "2023-01-10");
@@ -99,13 +100,20 @@ document.addEventListener("DOMContentLoaded", function () {
   //@@@ Aggiungo un listener per il click sul pulsante back della lista grade
   document.addEventListener("click", (event) => {
     const backButton = event.target.closest(".backButton");
+    const abortSButton = event.target.closest(".abortSButton");
     if (backButton) {
       gradeTable.classList.add("hidden");
       studentTable.classList.remove("hidden");
     }
+    if (abortSButton) {
+      addSTable.classList.add("hidden");
+      studentTable.classList.remove("hidden");
+      studentArray = [];
+      gradesArray = [];
+    }
   });
 
-  //@@@ Aggiungo un listener per il click sul pulsante add della lista studenti
+  //@@@ Aggiungo un listener per il click sul pulsante add in alto lista studenti
   document.addEventListener("click", (event) => {
     const addSButton = event.target.closest(".addSButton");
     //const newElementHTML =
@@ -114,20 +122,25 @@ document.addEventListener("DOMContentLoaded", function () {
       //studentList.insertAdjacentHTML("beforebegin", newElementHTML);
       studentTable.classList.add("hidden");
       addSTable.classList.remove("hidden");
-
+      populateTableAddS(studentArray);
       populateTableAddSG(gradesArray);
     }
   });
 
   //@@@ Aggiungo un listener per il click sul pulsante submit dell' add studenti
-  document.querySelector(".subAddS").addEventListener("click", () => {
-    // Ottieni i valori inseriti nei campi del modulo
-    const firstName = document.getElementById("firstName_1").value;
-    const lastName = document.getElementById("lastName_1").value;
-    const newElementHTML = `<tr><td>#</td><td>${lastName}</td><td>${firstName}</td><td></td></tr>`;
-    // Esempio: Aggiungi una nuova riga con i dati inseriti
-    addFormS.innerHTML = newElementHTML;
-    //addFormS.appendChild(newElementHTML);
+  //document.querySelector(".subAddS").addEventListener("click", () => {
+  document.addEventListener("click", (event) => {
+    const subAddSButton = event.target.closest(".subAddS");
+    if (subAddSButton) {
+      // Ottieni i valori inseriti nei campi del modulo
+      const firstName = document.getElementById("firstName_1").value;
+      const lastName = document.getElementById("lastName_1").value;
+      const newElementHTML = `<tr><td>#</td><td>${lastName}</td><td>${firstName}</td><td></td></tr>`;
+      // Esempio: Aggiungi una nuova riga con i dati inseriti
+      addFormS.innerHTML = newElementHTML;
+      studentArray.push({ firstName, lastName });
+      //addFormS.appendChild(newElementHTML);
+    }
     // Resetta i campi del modulo
     //document.getElementById("firstName_1").value = "";
     //document.getElementById("lastName_1").value = "";
@@ -144,10 +157,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const description = document.getElementById("description_0").value;
 
       gradesArray.push({ grade, date, description });
-      count = count + 1;
       console.log(
         "count:" +
-          count +
           "\n" +
           "gradesArray:" +
           JSON.stringify(gradesArray) +
@@ -192,6 +203,35 @@ document.addEventListener("DOMContentLoaded", function () {
       row.innerHTML = `<td class="text-center" scope="row">${grade.grade}</td><td>${grade.date}</td><td>${grade.description}</td><td><button class="removeGradeButton">Remove</button></td>`;
     });
   }
+  // Funzione per popolare la tabella con input studente
+  function populateTableAddS(data) {
+    addFormS.innerHTML = "";
+    if (data.length > 0) {
+      addFormS.innerHTML = `<tr><td>#</td><td>${data.lastName}</td><td>${data.firstName}</td><td></td></tr>`;
+      // Esempio: Aggiungi una nuova riga con i dati inseriti
+    } else {
+      addFormS.innerHTML = `<tr>
+      <td>#</td>
+      <td>
+        <form>
+          <input
+            type="text"
+            id="firstName_1"
+            name="firstName_1"
+          />
+        </form>
+      </td>
+      <td>
+        <form>
+          <input type="text" id="lastName_1" name="lastName_1" />
+        </form>
+      </td>
+      <td>
+        <button type="button" class="subAddS">Submit</button>
+      </td>
+    </tr>`;
+    }
+  }
   // Funzione per popolare la tabella con input grade e grade aggiunti
   function populateTableAddSG(data) {
     addFormSG.innerHTML = "";
@@ -203,7 +243,6 @@ document.addEventListener("DOMContentLoaded", function () {
         .forEach((grade) => {
           const row = addFormSG.insertRow();
           row.innerHTML = `<td class="text-center" scope="row">${grade.grade}</td><td>${grade.date}</td><td>${grade.description}</td><td><button class="removeGradeButton">Remove</button></td>`;
-          count++;
         });
     } else {
       addFormSG.innerHTML = `<tr><td class="text-center" scope="row"><form><input type="text" id="grade_0" name="grade_0" /></form></td><td><form><input type="text" id="date_0" name="date_0" /></form></td><td><form><input type="text" id="description_0" name="description_0"/></form></td><td><button type="button" class="subAddG">Submit</button></td></tr>`;
