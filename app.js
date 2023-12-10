@@ -35,7 +35,7 @@ class SchoolRegister {
     return this.class;
   }
 
-  // Visualizza i dati di tutti gli studenti nel registro
+  // Visualizza i dati di uno studente nel registro
   viewGrade(id) {
     const student = this.class.find((s) => s.id === id);
     //console.log(student);
@@ -117,6 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const backButton = event.target.closest(".backButton");
     const abortSButton = event.target.closest(".abortSButton");
     const confirmSButton = event.target.closest(".confirmSButton");
+    const modSbutton = event.target.closest(".modSButton");
 
     if (backButton) {
       gradeTable.classList.add("hidden");
@@ -154,6 +155,17 @@ document.addEventListener("DOMContentLoaded", function () {
           studentArray[0].lastName
         );
       populateTableS(register.viewClass());
+      studentArray = [];
+      gradesArray = [];
+    }
+    if (modSbutton) {
+      const thElement = modSbutton.closest("tr").querySelector("th");
+      const idValue = thElement ? thElement.id : null;
+
+      console.log("Valore dell'ID:", idValue);
+      populateTableS(register.viewClass(), idValue);
+      addSTable.classList.add("hidden");
+      studentTable.classList.remove("hidden");
       studentArray = [];
       gradesArray = [];
     }
@@ -231,13 +243,19 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Funzione per popolare la tabella con i dati degli studenti
-  function populateTableS(data) {
+  function populateTableS(data, i = false) {
     studentList.innerHTML = "";
     let count = 1;
 
-    data.forEach((student) => {
-      const row = studentList.insertRow();
-      row.innerHTML = `<th class="text-center" scope="row" id=${student.id}>${count}</th><td>${student.lastname}</td><td>${student.firstname}</td><td><button class="gradeButton">Grades</button></td>`;
+    data.forEach((student, index) => {
+      if (i === student.id) {
+        console.log("ci siamo");
+        const row = studentList.insertRow();
+        row.innerHTML = `<th class="text-center" scope="row" id=${student.id}>${count}</th><td><form><input type="text" id="lastName_mod" name="lastName_mod" value="${student.lastname}"/></form></td><td><form><input type="text" id="firstName_mod" name="firstName_mod" value="${student.firstname}"/></form></td><td><button class="gradeButton">Grades</button></td><td><button class="modSButton">Confirm</button></td>`;
+      } else {
+        const row = studentList.insertRow();
+        row.innerHTML = `<th class="text-center" scope="row" id=${student.id}>${count}</th><td>${student.lastname}</td><td>${student.firstname}</td><td><button class="gradeButton">Grades</button></td><td><button class="modSButton">Update</button></td>`;
+      }
     });
   }
   // Funzione per popolare la tabella con i dati dei voti
