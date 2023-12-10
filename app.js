@@ -71,6 +71,18 @@ class SchoolRegister {
     localStorage.setItem("schoolRegister", JSON.stringify(this.class));
   }
 
+  updateGrade(idS, idG, grade, date, description) {
+    const student = this.class.find((s) => s.id === idS);
+    if (student) {
+      console.log("Vediamo....: " + student.grades[0].grade);
+      student.grades[0].grade = grade;
+      student.grades[0].date = date;
+      student.grades[0].description = description;
+      //student.firstname = nFirstname;
+      //student.lastname = nLastname;
+    }
+    localStorage.setItem("schoolRegister", JSON.stringify(this.class));
+  }
   // Rimuovi uno studente dal registro
   removeStudent(id) {
     this.class = this.class.filter((s) => !(s.id === id));
@@ -113,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("student.grade: " + student.grades);
       idStudentGrade = student.id;
       console.log("idStudentGrade: " + idStudentGrade);
-      populateTableG(student.grades, idStudentGrade);
+      populateTableG(student.grades);
     }
   });
 
@@ -125,6 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const modSbutton = event.target.closest(".modSButton");
     const confModSButton = event.target.closest(".confModSButton");
     const updateGradeButton = event.target.closest(".updateGradeButton");
+    const confModGButton = event.target.closest(".confModGButton");
 
     if (backButton) {
       gradeTable.classList.add("hidden");
@@ -197,6 +210,23 @@ document.addEventListener("DOMContentLoaded", function () {
       const student = register.viewGrade(idStudentGrade);
       console.log("student: " + student);
       populateTableG(student.grades, idValue);
+      //addSTable.classList.add("hidden");
+      //studentTable.classList.remove("hidden");
+      //studentArray = [];
+      //gradesArray = [];
+    }
+    if (confModGButton) {
+      const trElement = confModGButton.closest("tr");
+      const idValue = trElement ? trElement.id : null;
+      const grade = document.getElementById("grade_mod").value;
+      const date = document.getElementById("date_mod").value;
+      const description = document.getElementById("description_mod").value;
+
+      console.log("Valore dell'ID:", idValue);
+      register.updateGrade(idStudentGrade, idValue, grade, date, description);
+      //register.updateStudent(idValue, firstname, lastname);
+      const student = register.viewGrade(idStudentGrade);
+      populateTableG(student.grades);
       //addSTable.classList.add("hidden");
       //studentTable.classList.remove("hidden");
       //studentArray = [];
@@ -292,7 +322,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
   // Funzione per popolare la tabella con i dati dei voti
-  function populateTableG(data, i, grade = "", date = "", description = "") {
+  function populateTableG(
+    data,
+    i = "",
+    grade = "",
+    date = "",
+    description = ""
+  ) {
     gradeList.innerHTML = "";
     console.log("i: " + i);
     data.forEach((elem, index) => {
