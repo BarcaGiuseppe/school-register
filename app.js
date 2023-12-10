@@ -85,6 +85,7 @@ class SchoolRegister {
   }
   // Rimuovi uno studente dal registro
   removeStudent(id) {
+    console.log(id);
     this.class = this.class.filter((s) => !(s.id === id));
     localStorage.setItem("schoolRegister", JSON.stringify(this.class));
   }
@@ -106,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let studentArray = [];
   let idStudentGrade = "";
   //let count = 0;
-  register.addStudent("Mario", "Rossi");
+  //register.addStudent("Mario", "Rossi");
   //register.addGrade("5e7cd6947bb4618c540471a3", 8, "Math", "2023-01-10");
   //register.updateStudent("5e7cd6947bb4618c540471a3", "Giuseppe", "Barca");
   //register.removeStudent("4ce2790d6f16b18c4fe61c10");
@@ -138,6 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const confModSButton = event.target.closest(".confModSButton");
     const updateGradeButton = event.target.closest(".updateGradeButton");
     const confModGButton = event.target.closest(".confModGButton");
+    const remSButton = event.target.closest(".remSButton");
 
     if (backButton) {
       gradeTable.classList.add("hidden");
@@ -232,6 +234,13 @@ document.addEventListener("DOMContentLoaded", function () {
       //studentArray = [];
       //gradesArray = [];
     }
+    if (remSButton) {
+      const thElement = remSButton.closest("tr").querySelector("th");
+      const idValue = thElement ? thElement.id : null;
+      console.log("idValue: " + idValue);
+      register.removeStudent(idValue);
+      populateTableS(register.viewClass());
+    }
   });
 
   //@@@ Aggiungo un listener per il click sul pulsante add in alto lista studenti
@@ -317,7 +326,7 @@ document.addEventListener("DOMContentLoaded", function () {
         row.innerHTML = `<th class="text-center" scope="row" id=${student.id}>${count}</th><td><form><input type="text" id="lastname_mod" name="lastName_mod" value="${student.lastname}"/></form></td><td><form><input type="text" id="firstname_mod" name="firstName_mod" value="${student.firstname}"/></form></td><td><button class="gradeButton">Grades</button></td><td><button class="confModSButton">Confirm</button></td>`;
       } else {
         const row = studentList.insertRow();
-        row.innerHTML = `<th class="text-center" scope="row" id=${student.id}>${count}</th><td>${student.lastname}</td><td>${student.firstname}</td><td><button class="gradeButton">Grades</button></td><td><button class="modSButton">Update</button></td>`;
+        row.innerHTML = `<th class="text-center" scope="row" id=${student.id}>${count}</th><td>${student.lastname}</td><td>${student.firstname}</td><td><button class="gradeButton">Grades</button></td><td><button class="modSButton">Update</button><button class="remSButton">Remove</button></td>`;
       }
     });
   }
@@ -349,11 +358,11 @@ document.addEventListener("DOMContentLoaded", function () {
           description +
           "\n"
       );
-      console.log(typeof elem.grade, typeof grade);
+      /*console.log(typeof elem.grade, typeof grade);
       console.log(typeof elem.date, typeof date);
       console.log(typeof elem.description, typeof description);
       console.log("grade:" + elem.grade.toString() === grade.toString());
-      console.log("date:" + elem.date.toString() === date.toString());
+      console.log("date:" + elem.date.toString() === date.toString());*/
 
       if (i === elem.id) {
         console.log("cca semu");
