@@ -12,6 +12,7 @@ class SchoolRegister {
         lastname,
         grades: [
           {
+            id: Math.random().toString(16).slice(2) + Date.now().toString(16),
             grade: grade[0].grade,
             date: grade[0].date,
             description: grade[0].description,
@@ -44,9 +45,10 @@ class SchoolRegister {
   // Aggiungi un voto a uno studente specifico
   addGrade(id, grade, date, description) {
     const student = this.class.find((s) => s.id === id);
-
+    const idNew = Math.random().toString(16).slice(2) + Date.now().toString(16);
     if (student) {
       student.grades.push({
+        idNew,
         grade,
         date,
         description,
@@ -90,8 +92,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let gradesArray = [];
   let studentArray = [];
+  let idStudentGrade = "";
   //let count = 0;
-  //register.addStudent("Mario", "Rossi");
+  register.addStudent("Mario", "Rossi");
   //register.addGrade("5e7cd6947bb4618c540471a3", 8, "Math", "2023-01-10");
   //register.updateStudent("5e7cd6947bb4618c540471a3", "Giuseppe", "Barca");
   //register.removeStudent("4ce2790d6f16b18c4fe61c10");
@@ -107,8 +110,10 @@ document.addEventListener("DOMContentLoaded", function () {
       studentTable.classList.add("hidden");
       gradeTable.classList.remove("hidden");
       nameGradebook.innerHTML = `<button class="backButton d-inline-block btn btn-primary"">Back</button><h4 class="d-inline-block">Gradebook ${student.lastname} ${student.firstname}</h4>`;
-
-      populateTableG(student.grades);
+      console.log("student.grade: " + student.grades);
+      idStudentGrade = student.id;
+      console.log("idStudentGrade: " + idStudentGrade);
+      populateTableG(student.grades, idStudentGrade);
     }
   });
 
@@ -118,6 +123,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const abortSButton = event.target.closest(".abortSButton");
     const confirmSButton = event.target.closest(".confirmSButton");
     const modSbutton = event.target.closest(".modSButton");
+    const confModSButton = event.target.closest(".confModSButton");
+    const updateGradeButton = event.target.closest(".updateGradeButton");
 
     if (backButton) {
       gradeTable.classList.add("hidden");
@@ -162,12 +169,38 @@ document.addEventListener("DOMContentLoaded", function () {
       const thElement = modSbutton.closest("tr").querySelector("th");
       const idValue = thElement ? thElement.id : null;
 
-      console.log("Valore dell'ID:", idValue);
+      //console.log("Valore dell'ID:", idValue);
       populateTableS(register.viewClass(), idValue);
-      addSTable.classList.add("hidden");
-      studentTable.classList.remove("hidden");
-      studentArray = [];
-      gradesArray = [];
+      //addSTable.classList.add("hidden");
+      //studentTable.classList.remove("hidden");
+      //tudentArray = [];
+      //gradesArray = [];
+    }
+    if (confModSButton) {
+      const thElement = confModSButton.closest("tr").querySelector("th");
+      const idValue = thElement ? thElement.id : null;
+      const firstname = document.getElementById("firstname_mod").value;
+      const lastname = document.getElementById("lastname_mod").value;
+      console.log("Valore dell'ID:", idValue);
+      register.updateStudent(idValue, firstname, lastname);
+      populateTableS(register.viewClass());
+      //addSTable.classList.add("hidden");
+      //studentTable.classList.remove("hidden");
+      //studentArray = [];
+      //gradesArray = [];
+    }
+    if (updateGradeButton) {
+      const trElement = updateGradeButton.closest("tr");
+      const idValue = trElement ? trElement.id : null;
+
+      console.log("idValue: " + idValue);
+      const student = register.viewGrade(idStudentGrade);
+      console.log("student: " + student);
+      populateTableG(student.grades, idValue);
+      //addSTable.classList.add("hidden");
+      //studentTable.classList.remove("hidden");
+      //studentArray = [];
+      //gradesArray = [];
     }
   });
 
@@ -251,7 +284,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (i === student.id) {
         console.log("ci siamo");
         const row = studentList.insertRow();
-        row.innerHTML = `<th class="text-center" scope="row" id=${student.id}>${count}</th><td><form><input type="text" id="lastName_mod" name="lastName_mod" value="${student.lastname}"/></form></td><td><form><input type="text" id="firstName_mod" name="firstName_mod" value="${student.firstname}"/></form></td><td><button class="gradeButton">Grades</button></td><td><button class="modSButton">Confirm</button></td>`;
+        row.innerHTML = `<th class="text-center" scope="row" id=${student.id}>${count}</th><td><form><input type="text" id="lastname_mod" name="lastName_mod" value="${student.lastname}"/></form></td><td><form><input type="text" id="firstname_mod" name="firstName_mod" value="${student.firstname}"/></form></td><td><button class="gradeButton">Grades</button></td><td><button class="confModSButton">Confirm</button></td>`;
       } else {
         const row = studentList.insertRow();
         row.innerHTML = `<th class="text-center" scope="row" id=${student.id}>${count}</th><td>${student.lastname}</td><td>${student.firstname}</td><td><button class="gradeButton">Grades</button></td><td><button class="modSButton">Update</button></td>`;
@@ -259,12 +292,42 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
   // Funzione per popolare la tabella con i dati dei voti
-  function populateTableG(data) {
+  function populateTableG(data, i, grade = "", date = "", description = "") {
     gradeList.innerHTML = "";
+    console.log("i: " + i);
+    data.forEach((elem, index) => {
+      console.log(
+        "elem.grade: " +
+          elem.grade +
+          " grade: " +
+          grade +
+          "\n" +
+          "elem.date: " +
+          elem.date +
+          " date: " +
+          date +
+          "\n" +
+          "elem.description: " +
+          elem.description +
+          " description: " +
+          description +
+          "\n"
+      );
+      console.log(typeof elem.grade, typeof grade);
+      console.log(typeof elem.date, typeof date);
+      console.log(typeof elem.description, typeof description);
+      console.log("grade:" + elem.grade.toString() === grade.toString());
+      console.log("date:" + elem.date.toString() === date.toString());
 
-    data.forEach((grade) => {
-      const row = gradeList.insertRow();
-      row.innerHTML = `<td class="text-center" scope="row">${grade.grade}</td><td>${grade.date}</td><td>${grade.description}</td><td><button class="removeGradeButton">Remove</button></td>`;
+      if (i === elem.id) {
+        console.log("cca semu");
+        //const row = gradeList.insertRow();
+        gradeList.innerHTML = `<tr id=${elem.id}><td class="text-center ${index}" id="gradeG" scope="row"><form><input type="text" id="grade_mod" name="grade_mod" value="${elem.grade}"/></td><td id="gradeD"><form><input type="text" id="date_mod" name="dae_mod" value="${elem.date}"/></td><td id="gradeDe"><form><input type="text" id="description_mod" name="description_mod" value="${elem.description}"/></td><td><button class="confModGButton">Confirm</button></td></tr>`;
+      } else {
+        console.log("elem.id: " + elem.id);
+        //const row = gradeList.insertRow();
+        gradeList.innerHTML = `<tr id=${elem.id}><td class="text-cente ${index}" id="gradeG" scope="row">${elem.grade}</td><td id="gradeD">${elem.date}</td><td id="gradeDe">${elem.description}</td><td><button class="updateGradeButton">Update</button></td></tr>`;
+      }
     });
   }
   // Funzione per popolare la tabella con input studente
