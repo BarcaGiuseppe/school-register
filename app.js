@@ -113,6 +113,23 @@ document.addEventListener("DOMContentLoaded", function () {
       addSTable.classList.remove("hidden");
     }
   });
+
+  // Aggiungo un listener per il click sul pulsante submit dell' add studenti
+  document.querySelector(".subAddS").addEventListener("click", () => {
+    // Ottieni i valori inseriti nei campi del modulo
+    const firstName = document.getElementById("firstName_1").value;
+    const lastName = document.getElementById("lastName_1").value;
+
+    const newElementHTML = `<tr><td>1</td><td>${lastName}</td><td>${firstName}</td><td></td></tr>`;
+
+    // Esempio: Aggiungi una nuova riga con i dati inseriti
+    addFormS.innerHTML = newElementHTML;
+    //addFormS.appendChild(newElementHTML);
+
+    // Resetta i campi del modulo
+    //document.getElementById("firstName_1").value = "";
+    //document.getElementById("lastName_1").value = "";
+  });
   // Funzione per popolare la tabella con i dati degli studenti
   function populateTableS(data) {
     studentList.innerHTML = "";
