@@ -89,6 +89,20 @@ class SchoolRegister {
     this.class = this.class.filter((s) => !(s.id === id));
     localStorage.setItem("schoolRegister", JSON.stringify(this.class));
   }
+  // Rimuovi un grade dal registro
+  removeGrade(idS, isG) {
+    //console.log(id);
+    const student = this.class.find((s) => s.id === idS);
+    if (student) {
+      console.log("cca semu, isg: " + isG);
+      const grades = student.grades.filter((s) => {
+        return !(s.id === isG);
+        console.log(s.id === isG);
+      });
+      student.grades = grades;
+    }
+    localStorage.setItem("schoolRegister", JSON.stringify(this.class));
+  }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -140,6 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const updateGradeButton = event.target.closest(".updateGradeButton");
     const confModGButton = event.target.closest(".confModGButton");
     const remSButton = event.target.closest(".remSButton");
+    const remGradeButton = event.target.closest(".remGradeButton");
 
     if (backButton) {
       gradeTable.classList.add("hidden");
@@ -240,6 +255,14 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("idValue: " + idValue);
       register.removeStudent(idValue);
       populateTableS(register.viewClass());
+    }
+    if (remGradeButton) {
+      const trElement = remGradeButton.closest("tr");
+      const idValue = trElement ? trElement.id : null;
+      console.log("idValue: " + idValue);
+      register.removeGrade(idStudentGrade, idValue);
+      const student = register.viewGrade(idStudentGrade);
+      populateTableG(student.grades);
     }
   });
 
@@ -371,7 +394,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         console.log("elem.id: " + elem.id);
         //const row = gradeList.insertRow();
-        gradeList.innerHTML = `<tr id=${elem.id}><td class="text-cente ${index}" id="gradeG" scope="row">${elem.grade}</td><td id="gradeD">${elem.date}</td><td id="gradeDe">${elem.description}</td><td><button class="updateGradeButton">Update</button></td></tr>`;
+        gradeList.innerHTML = `<tr id=${elem.id}><td class="text-cente ${index}" id="gradeG" scope="row">${elem.grade}</td><td id="gradeD">${elem.date}</td><td id="gradeDe">${elem.description}</td><td><button class="updateGradeButton">Update</button><button class="remGradeButton">Remove</button></td></tr>`;
       }
     });
   }
