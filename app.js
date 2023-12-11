@@ -382,10 +382,12 @@ document.addEventListener("DOMContentLoaded", function () {
       if (i === student.id) {
         console.log("ci siamo");
         const row = studentList.insertRow();
-        row.innerHTML = `<th class="text-center" scope="row" id=${student.id}>${count}</th><td><form><input type="text" id="lastname_mod" name="lastName_mod" value="${student.lastname}"/></form></td><td><form><input type="text" id="firstname_mod" name="firstName_mod" value="${student.firstname}"/></form></td><td><button class="gradeButton">Grades</button></td><td><button class="confModSButton">Confirm</button></td>`;
+        row.innerHTML = `<th class="text-center" scope="row" id=${student.id}>${count}</th><td><form><input type="text" id="lastname_mod" name="lastName_mod" value="${student.lastname}"/></form></td><td><form><input type="text" id="firstname_mod" name="firstName_mod" value="${student.firstname}"/></form></td><td><button class="gradeButton"><i class="fa fa-book fa-fw" aria-hidden="true"></i></button></td><td><button class="confModSButton">Confirm</button></td>`;
+        ++count;
       } else {
         const row = studentList.insertRow();
-        row.innerHTML = `<th class="text-center" scope="row" id=${student.id}>${count}</th><td>${student.lastname}</td><td>${student.firstname}</td><td><button class="gradeButton">Grades</button></td><td><button class="modSButton">Update</button><button class="remSButton">Remove</button></td>`;
+        row.innerHTML = `<th class="text-center" scope="row" id=${student.id}>${count}</th><td>${student.lastname}</td><td>${student.firstname}</td><td><button class="gradeButton"><i class="fa fa-book fa-fw" aria-hidden="true"></button></td><td><button class="modSButton"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i></button><button class="remSButton"><i class="fa fa-trash-o fa-lg"></i></button></td>`;
+        ++count;
       }
     });
   }
@@ -432,7 +434,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         console.log("elem.id: " + elem.id);
         //const row = gradeList.insertRow();
-        gradeList.innerHTML += `<tr id=${elem.id}><td class="text-cente ${index}" id="gradeG" scope="row">${elem.grade}</td><td id="gradeD">${elem.date}</td><td id="gradeDe">${elem.description}</td><td><button class="updateGradeButton">Update</button><button class="remGradeButton">Remove</button></td></tr>`;
+        gradeList.innerHTML += `<tr id=${elem.id}><td class="text-cente ${index}" id="gradeG" scope="row">${elem.grade}</td><td id="gradeD">${elem.date}</td><td id="gradeDe">${elem.description}</td><td><button class="updateGradeButton"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i></button><button class="remGradeButton"><i class="fa fa-trash-o fa-lg"></i></button></td></tr>`;
       }
     });
   }
